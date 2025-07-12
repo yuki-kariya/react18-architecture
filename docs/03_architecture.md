@@ -50,21 +50,31 @@ UI は Component、および Feature Component を使用し実装する。
 
 同サービスの API、および外部サービスの接続には Use Case を使用する。
 
-### Usecase
+### Controller
 
-１ユーザーストーリーを実現する アプリケーションサービス関数。
+UI からの入力（フォーム値、イベントなど）を受け付け、UI の代わりに Use Case 呼び出しや Port 接続を行うメソッドを、UI に提供する。
 
-以下の処理フローを実行する。
+メソッド内では、接続に必要な Input データの変換作業、Port から返却された値の ViewModel への変換を Presenter を呼び出し実行する。
 
-- Port を介して API / ストレージを呼び出し DTO を取得
-- DTO → ViewModel へマッピング
-- 権限・整合性チェックなど “ルール” を適用して返却
+メソッド内部でビジネスロジックの呼び出しが必要な場合は Use Case を呼び出し、外部サービスへの接続が必要な場合は、直接 Port に接続する。
 
-例) useFetchUser, useUpdateProfile
+カスタムフックで実装され、React コンポーネントと Use Case、Presenter との仲介を行う。
+
+### Use Case
+
+一連のビジネスルール（≒ ユースケース）を実行し、結果を返す。
+
+ビジネスルールの実行には Port を経由し BE で処理する。
+
+Port から返却された Output Dto を呼び出し元に返す
+
+例) fetchUserProfile
 
 ### Presenter
 
-UI と Usecase の橋渡しを行う React カスタムフック 群。
+Use Case の結果を受け取り、ViewModel に変換する。
+
+一部画面コンポーネントの状態を受け取り、そのステートに適した ViewModel を適宜作成する。
 
 ### ViewModel
 
@@ -88,9 +98,9 @@ API のみならず、LocalStorage や外部サービスとの接続も対象。
 - 外部ベンダーが提供している API
 - sessionStorage / localStorage
 
-外部サービスから渡ってきたデータを、加工せず呼び出し元（多くの場合 Usecase）に連携する。
+外部サービスから渡ってきたデータを、加工せず呼び出し元（多くの場合 Use Case）に連携する。
 
-### Conig
+### Config
 
 アプリケーション設定。
 
