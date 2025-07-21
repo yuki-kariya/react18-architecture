@@ -16,39 +16,37 @@
 
 ## 構成要素
 
-### Component
+### Component(汎用 UI コンポーネント)
 
 ドメイン知識を一切持たない UI コンポーネント。
 
 例) Input, Select, Popup など
 
-### Feature Component
+### Feature Component(機能 UI コンポーネント)
 
 機能単位の UI コンポーネント。
 
 例) ProfileForm, UserSearchTable
 
-### Page Component
-
-画面 UI コンポーネント。
+### Page Component(画面 UI コンポーネント)
 
 ルーティング、画面遷移、ページスコープ副作用（例：\<meta\>タグの更新、window.addEventListenner、history の更新など）を管理する。
 
 UI は Component、および Feature Component を使用し実装する。
 
-同サービスの API、および外部サービスの接続には Use Case を使用する。
+同サービスの API、および外部サービスの接続には Controller を使用する。
 
 エラーバウンダリや、SEO メタなどにも責務を持つ。
 
 例) TopPage, ProfilePage
 
-### Layout Component
+### Layout Component(レイアウト UI コンポーネント)
 
 複数のページに共通する外枠。
 
 UI は Component、および Feature Component を使用し実装する。
 
-同サービスの API、および外部サービスの接続には Use Case を使用する。
+同サービスの API、および外部サービスの接続には Controller を使用する。
 
 ### Controller
 
@@ -124,50 +122,50 @@ TODO : 各クラスの関係性を図でまとめる
 
 ```txt
 src/
-├── components/                # Pure UI
+├── components/
 │
-├── feature-components/        # 機能 UI
+├── feature-components/
 │   └── {機能名}/
 │
-├── pages/                     # 画面コンポーネント
+├── pages/
 │   └── {画面名}Page/
 │
-├── layouts/                   # 共通レイアウト枠
+├── layouts/
 │   └── {レイアウト名}Layout/
 │
-├── presenters/                # UI ↔ Usecase 橋渡し
+├── presenters/
 │   └── useZipSearchPresenter.ts
 │
-├── usecases/                  # 1 ユーザーストーリー単位ロジック :contentReference[oaicite:19]{index=19}
+├── usecases/
 │   ├── fetchUser.ts
 │   └── updateProfile.ts
 │
-├── viewmodels/                # UI 専用型・派生値保持 :contentReference[oaicite:20]{index=20}
+├── viewmodels/
 │   └── UserVM.ts
 │
-├── ports/                     # 抽象インタフェース (I/O) :contentReference[oaicite:21]{index=21}
+├── ports/
 │   └── UserApiPort.ts
 │
-├── adapters/                  # Port 実装（Axios 等） :contentReference[oaicite:22]{index=22}
+├── adapters/
 │   └── userApiAdapter.ts
 │
-├── config/                    # 環境変数など設定 :contentReference[oaicite:23]{index=23}
+├── config/
 │   └── env.ts
 │
-├── lib/                       # 外部ライブラリ共通設定 :contentReference[oaicite:24]{index=24}
+├── lib/
 │   ├── axiosClient.ts
 │   └── reactQueryClient.ts
 │
-├── utils/                     # 汎用ヘルパー関数 :contentReference[oaicite:25]{index=25}
+├── utils/
 │   └── date.ts
 │
-├── locales/                   # i18n リソース :contentReference[oaicite:26]{index=26}
+├── locales/
 │   ├── ja/
 │   │   └── common.json
 │   └── en/
 │       └── common.json
 │
-└── tests/                     # ユニット / IT テスト
+└── tests/
     └── …
 
 ```
