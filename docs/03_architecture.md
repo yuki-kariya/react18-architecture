@@ -144,8 +144,14 @@ src/
 │   └── UserVM.ts
 │
 ├── ports/
-│   └── UserApiPort.ts
-│
+|   ├── api/
+|   |   ├── types/
+|   |   |  ├── schemas/
+|   |   |  |   └── User.ts
+|   |   |  ├── FetchUserRequest.ts
+|   |   |  └── FetchUserResponse.ts
+│   |   └── userApi
+│   └── storage/
 ├── adapters/
 │   └── userApiAdapter.ts
 │
